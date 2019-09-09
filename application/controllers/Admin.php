@@ -73,7 +73,8 @@
           $this->form_validation->set_rules('StationFrequency', 'Station Frequency', 'required|min_length[4]');
 
           if($this->form_validation->run()) {
-            $formData = ['Station_Name' => $this->input->post('StationName'), 'Frequency' => $this->input->post('StationFrequency')];
+            $formData = ['Station_Name' => $this->input->post('StationName'), 
+            'Frequency' => $this->input->post('StationFrequency')];
             $this->Manage_model->addNewStation($formData);
           } else {
             $this->new_user();
@@ -83,24 +84,36 @@
         public function new_user ()
         {
             $this::CheckSession();
-                $data['stationsArr'] = $this->Manage_model->getStations();
-                $data['usersArr'] = $this->Manage_model->view_users();
+            $data['stationsArr'] = $this->Manage_model->getStations();
+            $data['usersArr'] = $this->Manage_model->view_users();
 
-                $this->load->view('admin/new_user', $data);
+            $this->load->view('admin/new_user', $data);
         }
 
         public function create_new_user ()
         {
             $this::CheckSession();
-                if(!empty($_POST['AddUserName']) & !empty($_POST['AddUserPassword'])){
-                    if($this->Manage_model->create_new_user($_POST['AddUserName'], $_POST['AddUserPassword'])){
-                        echo 'Successefully registered';
-                    }else{
-                        echo 'Failed to add new user';
-                    }
+            if(!empty($_POST['stationsName']) & !empty($_POST['AddUserName']) & 
+            !empty($_POST['AddUserPassword'])){
+                $formData = [
+                    'User_Name' => $_POST['AddUserName'],
+                    'User_Password' => $_POST['AddUserPassword'], 
+                    'Stations_id' => $_POST['stationsName']
+                ];
+
+                $create = $this->Manage_model->create_new_user($formData);
+
+                if($create){
+                    $data['stationsArr'] = $this->Manage_model->getStations();
+                    $data['usersArr'] = $this->Manage_model->view_users();
+
+                    $this->load->view('admin/new_user', $data);
                 }else{
-                    echo 'All fields required';
+                    echo 'Failed to add new user';
                 }
+            }else{
+                echo 'All fields required';
+            }
         }
 
         public function view_users ()
@@ -114,8 +127,10 @@
         {
             $this::CheckSession();
                 if($this->Manage_model->delete_user($id)) {
-                    $get = $this->Manage_model->view_users();
-                    $this->load->view('admin/view_users', ['users' => $get]);
+                    $data['stationsArr'] = $this->Manage_model->getStations();
+                    $data['usersArr'] = $this->Manage_model->view_users();
+
+                    $this->load->view('admin/new_user', $data);
                 }else{
                     echo 'Failed to delete user '.$id;
                 }

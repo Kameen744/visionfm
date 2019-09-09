@@ -5,10 +5,9 @@
             $this->load->database();
         }
 
-        public function create_new_user ($username, $password) {
-            $data = ['User_Name' => $username,
-            'User_Password' => $password, 'Stations_id' => 1];
-            if($this->db->insert('authors', $data)){
+        public function create_new_user ($formData) {
+            
+            if($this->db->insert('authors', $formData)){
                 return TRUE;
             }else{
                 return FALSE;

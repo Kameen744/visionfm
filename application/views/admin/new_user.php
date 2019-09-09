@@ -46,9 +46,9 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="py-0">Add New User</h2>
-                <?php echo form_open(base_url().'admin/addNewStation', ['class' => 'shadow-lg', 'id' => 'newDepartmentForm']);?>
+                <?php echo form_open(base_url().'admin/addNewUser', ['class' => 'shadow-lg']);?>
                     <div class="form-group">
-                    <select class="form-control" name="stationsName" id="">
+                    <select class="form-control" name="stationsName" id="stationsName">
                         <option value="">Select Station</option>
                         <?php foreach($stationsArr as $stn):?>
                             <option value="<?= $stn['id']?>"><?= $stn['Station_Name']?></option>
@@ -61,15 +61,12 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="AddUserPassword" id="AddUserPassword" placeholder="Password">
                     </div>
-                    <button class="btn btn-primary btn-block" id="AddUserSubmit">Submit</button>
+                    <button class="btn btn-primary btn-block" id="AddUserSubmit">Add New User</button>
 
-                    <!-- <div class="alert alert-success">
-                        <strong id="AddUserSuccess"></strong>
-                    </div> -->
                 <?php echo form_close(); ?>
             </div>
             <?php if(isset($usersArr)): ?>
-            <div class="col-12">
+            <div class="col-12" id="reportersContainer">
                 <h3 class="text-center">Reporters</h3>
                 <table class="table">
                     <thead>
@@ -84,7 +81,7 @@
                         <tr>
                             <td scope="row"><?= $user['User_Name'] ?></td>
                             <td><?= $user['Station_Name']?></td>
-                            <td><button type="button" id="delDeptCourseBtn" class="btn btn-sm btn-danger btn-circle" value="<?=$user['id']?>"><i class="fas fa-trash"></i></button></td>
+                            <td><button type="button" id="delUser" class="btn btn-sm btn-danger btn-circle" value="<?=$user['id']?>"><i class="fas fa-trash"></i></button></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

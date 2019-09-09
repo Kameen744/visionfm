@@ -94,12 +94,14 @@ $(document).on('click', '#AddStationsSubmit', function(e) {
 // add new user
 $(document).on('click', '#AddUserSubmit', function (e) {
   e.preventDefault();
-  var AddUserName = $('#AddUserName').val();
-  var AddUserPassword = $('#AddUserPassword').val();
+  let stationsName = $('#stationsName').val();
+  let AddUserName = $('#AddUserName').val();
+  let AddUserPassword = $('#AddUserPassword').val();
+ 
   var post = new ajxobj ('create_new_user','POST', 'HTML',
-  {'AddUserName' : AddUserName, 'AddUserPassword' : AddUserPassword});
+  {stationsName: stationsName, AddUserName : AddUserName, AddUserPassword : AddUserPassword});
     post.jxhr.done(function (res) {
-      $('#AddUserSuccess').html(res);
+      $('#AdminMainPage').html(res);
     });
 });
 // delete user
@@ -135,28 +137,28 @@ $(document).on('click', '#delCategory', function () {
 // Reporter
 // dash link click
 $(document).on('click', '.userdashlink', function () {
-  var post = new ajxobj ('/farinwatab/posts/' + $(this).val(), 'POST', 'HTML');
+  var post = new ajxobj ('/posts/' + $(this).val(), 'POST', 'HTML');
     post.jxhr.done(function (res) {
       $('#ReporterMainPage').html(res);
     });
 });
 // view post table page no
 $(document).on('click', '.postPage', function () {
-  var post = new ajxobj ('/farinwatab/posts/view_posts/' + $(this).val(), 'POST', 'HTML');
+  var post = new ajxobj ('/posts/view_posts/' + $(this).val(), 'POST', 'HTML');
     post.jxhr.done(function (res) {
         $('#ReporterMainPage').html(res);
     });
 });
 // del posts
 $(document).on('click', '.deletePost', function () {
-  var post = new ajxobj ('/farinwatab/posts/delete_post/' + $(this).val(), 'POST', 'HTML');
+  var post = new ajxobj ('/posts/delete_post/' + $(this).val(), 'POST', 'HTML');
     post.jxhr.done(function (res) {
         $('#ReporterMainPage').html(res);
     });
 });
 // post type select
 $(document).on('change', '#PostType', function () {
-  var post = new ajxobj ('/farinwatab/posts/get_category/' + $(this).val(), 'POST', 'HTML');
+  var post = new ajxobj ('/posts/get_category/' + $(this).val(), 'POST', 'HTML');
     post.jxhr.done(function (res) {
         $('#PostCategory').html(res);
     });
@@ -186,14 +188,14 @@ $(document).on('click', '#SubmitVideo', function (e) {
 });
 // delete video
 $(document).on('click', '#deleteVid', function () {
-  var post = new ajxobj ('/farinwatab/posts/delete_video/' + $(this).val(), 'POST', 'HTML');
+  var post = new ajxobj ('/posts/delete_video/' + $(this).val(), 'POST', 'HTML');
     post.jxhr.done(function (res) {
         $('#ReporterMainPage').html(res);
     });
 });
 // more next/prev
 $(document).on('click', '#newsNext', function () {
-  var post = new ajxobj ('/farinwatab/posts/next_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/next_post/', 'POST', 'HTML',
   {newsNext : $(this).val(), newsPrevv : $('#newsPrev').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -203,7 +205,7 @@ $(document).on('click', '#newsNext', function () {
 });
 
 $(document).on('click', '#newsPrev', function () {
-  var post = new ajxobj ('/farinwatab/posts/prev_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/prev_post/', 'POST', 'HTML',
   {newsPrev : $(this).val(), newsNextt : $('#newsNext').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -213,7 +215,7 @@ $(document).on('click', '#newsPrev', function () {
 });
 
 $(document).on('click', '#intNext', function () {
-  var post = new ajxobj ('/farinwatab/posts/next_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/next_post/', 'POST', 'HTML',
   {intNext : $(this).val(), intPrevv : $('#intPrev').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -223,7 +225,7 @@ $(document).on('click', '#intNext', function () {
 });
 
 $(document).on('click', '#intPrev', function () {
-  var post = new ajxobj ('/farinwatab/posts/prev_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/prev_post/', 'POST', 'HTML',
   { intPrev : $(this).val(), intNextt : $('#intNext').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -233,7 +235,7 @@ $(document).on('click', '#intPrev', function () {
 });
 
 $(document).on('click', '#polNext', function () {
-  var post = new ajxobj ('/farinwatab/posts/next_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/next_post/', 'POST', 'HTML',
   {polNext : $(this).val(), polPrevv : $('#polPrev').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -243,7 +245,7 @@ $(document).on('click', '#polNext', function () {
 });
 
 $(document).on('click', '#polPrev', function () {
-  var post = new ajxobj ('/farinwatab/posts/prev_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/prev_post/', 'POST', 'HTML',
   {polPrev : $(this).val(), polNextt : $('#polNext').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -253,7 +255,7 @@ $(document).on('click', '#polPrev', function () {
 });
 
 $(document).on('click', '#busNext', function () {
-  var post = new ajxobj ('/farinwatab/posts/next_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/next_post/', 'POST', 'HTML',
   {busNext : $(this).val(), busPrevv : $('#busPrev').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){
@@ -263,7 +265,7 @@ $(document).on('click', '#busNext', function () {
 });
 
 $(document).on('click', '#busPrev', function () {
-  var post = new ajxobj ('/farinwatab/posts/prev_post/', 'POST', 'HTML',
+  var post = new ajxobj ('/posts/prev_post/', 'POST', 'HTML',
   {busPrev : $(this).val(), busNextt : $('#busNext').val()});
     post.jxhr.done(function (res) {
       if(res == null || res == ''){

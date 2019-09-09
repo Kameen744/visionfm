@@ -20,8 +20,12 @@ class Post_model extends CI_Model
     {
         $this->db->select('id, News_Title, Created_At');
         $this->db->from('news');
+        if($this->session->userdata('reporter_id')) {
+            $this->db->where('Authors_id', $this->session->userdata('reporter_id'));
+        }
         $this->db->limit($limit, $offset);
         $this->db->order_by('id', 'DESC');
+        
         return $this->db->get()->result_array();
     }
 
